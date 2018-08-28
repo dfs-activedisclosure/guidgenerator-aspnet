@@ -3,7 +3,9 @@
 @Library('github.com/campbelldgunn/jenkins-pipeline@master')
 def pipeline = new org.whiteshieldinc.Pipeline()
 
-podTemplate(label: 'jenkins-pipeline', nodeSelector: 'Role=Application.Windows',
+def label = 'windows-pipeline-' + UUID.randomUUID().toString()
+
+podTemplate(label: label, nodeSelector: 'Role=Application.Windows',
     containers: [
         containerTemplate(name: 'jnlp', image: 'campbelldgunn/jnlp-slave-win:v1.0.1',
             envVars:[
