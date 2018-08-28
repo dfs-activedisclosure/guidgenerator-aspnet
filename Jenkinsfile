@@ -25,7 +25,7 @@ podTemplate(label: podLabel, nodeSelector: "beta.kubernetes.io/os=windows",
         containerTemplate(
 			name: "kubectl-win",
 			alwaysPullImage: false,
-			image: "campbelldgunn/k8s-kubectl-win:v1.0.1")
+			image: "campbelldgunn/k8s-kubectl-win:v1.0.1"),
         containerTemplate(
 			name: "helm-win",
 			alwaysPullImage: false,
