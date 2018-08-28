@@ -23,6 +23,10 @@ podTemplate(label: podLabel, nodeSelector: "beta.kubernetes.io/os=windows",
 			alwaysPullImage: false,
 			ttyEnabled: true),
         containerTemplate(
+			name: "kubectl-win",
+			alwaysPullImage: false,
+			image: "campbelldgunn/k8s-kubeclt-win:v1.0.1")
+        containerTemplate(
 			name: "helm-win",
 			alwaysPullImage: false,
 			image: "campbelldgunn/k8s-helm-win:latest")
