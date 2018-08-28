@@ -1,19 +1,50 @@
-#!/usr/bin/groovy
+def randomUUID = UUID.randomUUID().toString().replace("-", "")
+def name = "XbrlTaxonomy"
+def podLabel = "${name}-${env.BUILD_NUMBER}"
 
-@Library('github.com/campbelldgunn/jenkins-pipeline@master')
-def pipeline = new org.whiteshieldinc.Pipeline()
+// constants
+def doubleQuote = '"'
 
-def label = 'windows-pipeline-' + UUID.randomUUID().toString()
-
-podTemplate(label: label, nodeSelector: 'Role=Application.Windows',
+podTemplate(label: podLabel, nodeSelector: "beta.kubernetes.io/os=windows",
     containers: [
-        containerTemplate(name: 'jnlp', image: 'campbelldgunn/jnlp-slave-win:v1.0.1',
+        containerTemplate(
+			name: "jnlp", 
+			image: "campbelldgunn/jnlp-slave-win:v1.0.1",
             envVars:[
-                containerEnvVar(key: 'HOME', value: 'C:\\users\\containeradministrator'),
-                containerEnvVar(key: 'JENKINS_HOME', value: 'C:\\Jenkins')
+                containerEnvVar(key: "HOME", value: "C:\\users\\containeradministrator"),
+                containerEnvVar(key: "JENKINS_HOME", value: "C:\\Jenkins")
             ],
-            workingDir: 'C:\\Jenkins\\'
-        containerTemplate(name: 'docker-windows', image: 'campbelldgunn/docker-windows:v1.0.1', command: 'powershell', ttyEnabled: true),
-        containerTemplate(name: 'helm-win', image: 'campbelldgunn/k8s-helm-win:latest')
+			alwaysPullImage: false,
+            workingDir: "C:\\Jenkins\\"),
+        containerTemplate(
+			name: "docker-windows", 
+			image: "campbelldgunn/docker-windows:v1.0.1", 
+			command: "powershell",
+			alwaysPullImage: false,
+			ttyEnabled: true),
+        containerTemplate(
+			name: "helm-win",
+			alwaysPullImage: false,
+			image: "campbelldgunn/k8s-helm-win:latest")
     ]
-)
+){
+  
+  node (podLabel) {
+    
+    checkout scm
+    def pwd = pwd()
+	
+	def description = sh (
+        script: "git log -1 --pretty=format:${doubleQuote}%h - %an, %ad : %s${doubleQuote}",
+        returnStdout: true
+    ).trim()
+	
+    currentBuild.description = "${description}"
+  
+    stage ("Do Something") {
+      container("jnlp") {
+        sh "echo 'do something'"
+      }
+	}
+  }
+}
