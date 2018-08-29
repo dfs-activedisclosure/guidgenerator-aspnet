@@ -15,21 +15,7 @@ podTemplate(label: podLabel, nodeSelector: "beta.kubernetes.io/os=windows",
                 containerEnvVar(key: "JENKINS_HOME", value: "C:\\Jenkins")
             ],
 			alwaysPullImage: false,
-            workingDir: "C:\\Jenkins\\"),
-        containerTemplate(
-			name: "docker-windows", 
-			image: "campbelldgunn/docker-windows:v1.0.1", 
-			command: "powershell",
-			alwaysPullImage: false,
-			ttyEnabled: true),
-        containerTemplate(
-			name: "kubectl-win",
-			alwaysPullImage: false,
-			image: "campbelldgunn/k8s-kubectl-win:v1.0.0"),
-        containerTemplate(
-			name: "helm-win",
-			alwaysPullImage: false,
-			image: "campbelldgunn/k8s-helm-win:v2.10.0")
+            workingDir: "C:\\Jenkins\\")
     ]
 ){
   
