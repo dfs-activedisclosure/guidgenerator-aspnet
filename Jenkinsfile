@@ -1,5 +1,5 @@
 def randomUUID = UUID.randomUUID().toString().replace("-", "")
-def name = "XbrlTaxonomy"
+def name = "GuidGenerator"
 def podLabel = "${name}-${env.BUILD_NUMBER}"
 
 // constants
@@ -25,11 +25,11 @@ podTemplate(label: podLabel, nodeSelector: "beta.kubernetes.io/os=windows",
         containerTemplate(
 			name: "kubectl-win",
 			alwaysPullImage: false,
-			image: "campbelldgunn/k8s-kubectl-win:v1.0.1"),
+			image: "campbelldgunn/k8s-kubectl-win:v1.0.0"),
         containerTemplate(
 			name: "helm-win",
 			alwaysPullImage: false,
-			image: "campbelldgunn/k8s-helm-win:latest")
+			image: "campbelldgunn/k8s-helm-win:v2.10.0")
     ]
 ){
   
