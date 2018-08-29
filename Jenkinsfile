@@ -9,7 +9,7 @@ podTemplate(label: podLabel, nodeSelector: "beta.kubernetes.io/os=windows",
     containers: [
         containerTemplate(
 			name: "jnlp", 
-			image: "campbelldgunn/jnlp-slave-win:v1.0.1",
+			image: "campbelldgunn/jnlp-slave-win:v1.0.2",
             envVars:[
                 containerEnvVar(key: "HOME", value: "C:\\users\\containeradministrator"),
                 containerEnvVar(key: "JENKINS_HOME", value: "C:\\Jenkins")
