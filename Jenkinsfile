@@ -1,5 +1,5 @@
 def randomUUID = UUID.randomUUID().toString().replace("-", "")
-def name = "GuidGenerator"
+def name = "Guid-Generator"
 def podLabel = "${name}-${env.BUILD_NUMBER}"
 
 // constants
