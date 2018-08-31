@@ -18,7 +18,7 @@ podTemplate(label: podLabel, nodeSelector: "beta.kubernetes.io/os=windows",
             workingDir: "C:\\Jenkins\\")
     ],
     volumes: [
-        pipeVolume(mountPath: "\\.\pipe\docker_engine", hostPath: "\\.\pipe\docker_engine")
+        pipeVolume(mountPath: "\\\\.\\pipe\\docker_engine", hostPath: "\\\\.\\pipe\\docker_engine")
     ]
 ){
   
