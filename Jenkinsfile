@@ -16,6 +16,9 @@ podTemplate(label: podLabel, nodeSelector: "beta.kubernetes.io/os=windows",
             ],
 			alwaysPullImage: false,
             workingDir: "C:\\Jenkins\\")
+    ],
+    volumes: [
+        pipeVolume(mountPath: "\\.\pipe\docker_engine", hostPath: "\\.\pipe\docker_engine")
     ]
 ){
   
